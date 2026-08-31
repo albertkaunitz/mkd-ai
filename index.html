@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="M.K.D. AI Boutique — ИИ-системы для бизнеса: ручная работа уходит в систему, люди занимаются тем, что приносит деньги.">
+<meta name="description" content="M.K.D. AI Boutique — архитектура и реализация ИИ-систем под процессы компании.">
 <title>MKD AI Boutique</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,13 +140,15 @@ hr{height:1px;background:var(--line);border:0;margin:38px 0}
 .contact .who{display:flex;flex-direction:column;gap:3px}
 .contact .who b{font-size:17px;font-weight:600;color:var(--ink)}
 .contact .who span{font-size:14.5px;color:var(--muted)}
+.contact .links{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+@media(min-width:560px){.contact .links{align-items:flex-end}}
 .contact a{
   font-size:16px;font-weight:600;color:var(--accent);text-decoration:none;
   border-bottom:1.5px solid var(--core);padding-bottom:2px;
 }
+.contact a + a{font-weight:500;font-size:15px;border-bottom-color:var(--line-2)}
 .contact a:hover{border-bottom-color:var(--accent)}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.soon{font-size:15px;color:var(--muted)}
 </style>
 
 </head>
@@ -169,7 +171,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 <div class="top">
   <p class="name">M.K.D. AI Boutique</p>
   <h1>Ручная работа уходит в систему. Люди — на то, что приносит деньги</h1>
-  <p class="lede">Собираю компаниям <b>ИИ-системы под их процессы</b>: заявки, документы, отчёты и первичные ответы клиентам берёт на себя связка ИИ-ролей, а сотрудники занимаются сделками, качеством и решениями.</p>
+  <p class="lede"><b>Архитектура и реализация ИИ-систем</b> под процессы компании: заявки, документы, отчёты и первичные ответы клиентам берёт на себя связка ИИ-ролей, а сотрудники занимаются сделками, качеством и решениями.</p>
 </div>
 
 <hr>
@@ -324,7 +326,10 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
     <b>Albert Kaunitz</b>
     <span>Архитектор ИИ-систем для бизнеса</span>
   </div>
-  <span class="soon">Контакты — по запросу</span>
+  <div class="links">
+    <a href="https://t.me/albertkaunitz" target="_blank" rel="noopener">✈ По сотрудничеству: @albertkaunitz</a>
+    <a href="mailto:aimkdproject@gmail.com">aimkdproject@gmail.com</a>
+  </div>
 </div>
 </div>
 
