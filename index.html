@@ -71,6 +71,29 @@ hr{height:1px;background:var(--line);border:0;margin:38px 0}
   font-size:16px;line-height:1.5;color:var(--ink-2);
 }
 
+/* показатели — сгруппированный перечень, воздух вместо плашек */
+.metrics{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}
+.mh{
+  font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 22px;
+}
+.mgrid{display:grid;grid-template-columns:1fr;gap:24px 34px}
+@media(min-width:560px){.mgrid{grid-template-columns:1fr 1fr}}
+.mgroup{display:flex;flex-direction:column;gap:9px}
+.mt{
+  font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--accent);
+  text-transform:uppercase;margin:0;
+}
+.mgroup ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.mgroup li{
+  font-size:15.5px;line-height:1.4;color:var(--ink);
+  padding-left:15px;position:relative;
+}
+.mgroup li::before{
+  content:"";position:absolute;left:0;top:.63em;width:6px;height:1.5px;background:var(--core);
+}
+.mnote{margin-top:24px;font-size:15.5px;line-height:1.5;color:var(--muted)}
+
 /* три опоры */
 .pillars{display:flex;flex-direction:column;gap:0;margin-top:4px}
 .pillar{
@@ -157,35 +180,83 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
     <div class="gain">
       <b>Обратно — часы каждый день</b>
       <span>Переносы данных, сверки, однотипные письма и документы перестают занимать людей.</span>
-      <em>Показатель: часы на рутину в неделю</em>
     </div>
     <div class="gain">
       <b>Клиент получает ответ сразу</b>
       <span>Первичный ответ уходит в момент обращения, а не когда освободится менеджер. Меньше потерянных заявок.</span>
-      <em>Показатель: скорость первого ответа, доля дошедших до сделки</em>
     </div>
     <div class="gain">
       <b>Меньше ошибок и переделок</b>
       <span>Документы и расчёты собираются из проверенных данных, а не из копий копий. Одна цена и один срок на всю компанию.</span>
-      <em>Показатель: правки и претензии по документам</em>
     </div>
     <div class="gain">
       <b>Рост без раздувания штата</b>
       <span>Больше заявок и клиентов проходит теми же людьми: мощность добавляется настройкой, а не наймом.</span>
-      <em>Показатель: стоимость обработки одного обращения</em>
     </div>
     <div class="gain">
       <b>Бизнес перестаёт зависеть от носителей знания</b>
       <span>Как всё устроено, знает система, а не два человека. Новый сотрудник входит в работу быстрее, уход ключевого — не катастрофа.</span>
-      <em>Показатель: срок ввода нового сотрудника</em>
     </div>
     <div class="gain">
       <b>Видно, что происходит</b>
       <span>Продажи, маркетинг и операционка сведены в одну картину — решения принимаются по данным, а не по ощущениям.</span>
-      <em>Показатель: срок подготовки управленческого отчёта</em>
     </div>
   </div>
-  <p class="fair">Проценты заранее не обещаю. Берём один участок, замеряем «до», ставим систему, замеряем «после» — и дальше расширяем на том, что уже подтвердилось.</p>
+  <p class="fair">Берём один участок, замеряем «до», ставим систему, замеряем «после» — и дальше расширяем на том, что уже подтвердилось.</p>
+
+  <div class="metrics">
+    <h3 class="mh">На какие показатели влияем</h3>
+    <div class="mgrid">
+      <div class="mgroup">
+        <p class="mt">Продажи и выручка</p>
+        <ul>
+          <li>Количество сделок за период</li>
+          <li>Конверсия из заявки в сделку</li>
+          <li>Длина цикла сделки</li>
+          <li>Средний чек</li>
+          <li>Выручка на одного сотрудника</li>
+        </ul>
+      </div>
+      <div class="mgroup">
+        <p class="mt">Клиенты и сервис</p>
+        <ul>
+          <li>Скорость первого ответа</li>
+          <li>Качество обслуживания и оценки клиентов</li>
+          <li>Доля обращений, закрытых без человека</li>
+          <li>Повторные покупки и отток</li>
+        </ul>
+      </div>
+      <div class="mgroup">
+        <p class="mt">Маркетинг и воронка</p>
+        <ul>
+          <li>Охват верхней части воронки</li>
+          <li>Доля квалифицированных лидов</li>
+          <li>Стоимость привлечения клиента</li>
+          <li>Количество работающих каналов продаж</li>
+          <li>Объём выпускаемого контента</li>
+        </ul>
+      </div>
+      <div class="mgroup">
+        <p class="mt">Процессы и операционка</p>
+        <ul>
+          <li>Время прохождения процесса</li>
+          <li>Доля автоматизированных операций</li>
+          <li>Ошибки и переделки в документах</li>
+          <li>Стоимость обработки одного обращения</li>
+        </ul>
+      </div>
+      <div class="mgroup">
+        <p class="mt">Управление и люди</p>
+        <ul>
+          <li>Срок подготовки управленческого отчёта</li>
+          <li>Часы на рутину в неделю</li>
+          <li>Срок ввода нового сотрудника</li>
+        </ul>
+      </div>
+    </div>
+    <p class="mnote">Какие из них считаем вашими — определяем на первом разборе: берём те, что упираются в ручную работу и данные.</p>
+  </div>
+
 </div>
 
 <hr>
