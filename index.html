@@ -93,6 +93,8 @@ hr{height:1px;background:var(--line);border:0;margin:38px 0}
   content:"";position:absolute;left:0;top:.63em;width:6px;height:1.5px;background:var(--core);
 }
 .mnote{margin-top:24px;font-size:15.5px;line-height:1.5;color:var(--muted)}
+.tailor{font-size:17px;line-height:1.55;color:var(--ink-2);max-width:36em}
+.tailor + .tailor{margin-top:14px}
 
 /* три опоры */
 .pillars{display:flex;flex-direction:column;gap:0;margin-top:4px}
@@ -140,13 +142,12 @@ hr{height:1px;background:var(--line);border:0;margin:38px 0}
 .contact .who{display:flex;flex-direction:column;gap:3px}
 .contact .who b{font-size:17px;font-weight:600;color:var(--ink)}
 .contact .who span{font-size:14.5px;color:var(--muted)}
-.contact .links{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
-@media(min-width:560px){.contact .links{align-items:flex-end}}
+.contact .links{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline}
 .contact a{
   font-size:16px;font-weight:600;color:var(--accent);text-decoration:none;
   border-bottom:1.5px solid var(--core);padding-bottom:2px;
 }
-.contact a + a{font-weight:500;font-size:15px;border-bottom-color:var(--line-2)}
+.contact a + a{font-weight:500;border-bottom-color:var(--line-2)}
 .contact a:hover{border-bottom-color:var(--accent)}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 </style>
@@ -264,6 +265,14 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 <hr>
 
 <div class="block">
+  <h2>Систему шьют по меркам</h2>
+  <p class="tailor">Готовых решений «из коробки» здесь нет. Сначала разбираем бизнес-процессы: кто что делает, откуда берутся данные, где работа идёт руками и на чём теряется время. Это и есть снятие мерок — как у портного, только с бизнеса.</p>
+  <p class="tailor">Дальше система собирается по этим меркам: под ваш продукт, ваш цикл сделки и ваших людей. Поэтому она садится по фигуре, а не жмёт в плечах.</p>
+</div>
+
+<hr>
+
+<div class="block">
   <h2>Из чего это состоит</h2>
   <div class="pillars">
     <div class="pillar">
@@ -327,7 +336,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
     <span>Архитектор ИИ-систем для бизнеса</span>
   </div>
   <div class="links">
-    <a href="https://t.me/albertkaunitz" target="_blank" rel="noopener">✈ По сотрудничеству: @albertkaunitz</a>
+    <a href="https://t.me/albertkaunitz" target="_blank" rel="noopener">@albertkaunitz</a>
     <a href="mailto:aimkdproject@gmail.com">aimkdproject@gmail.com</a>
   </div>
 </div>
