@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Второй мозг «Утконоса»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Rubik:wght@500;700;800&display=swap">
+<style>
+/* Дизайн-код: «Лента» — токены сайта lenta.com (styles-4YW5X3ZO.css): #003C96, #002C6D, #FFB900, #F2F8FF, #FFF4D9, #EFF3F3, #111111; шрифт Gilroy (лицензионный, заменён Manrope).
+   «Утконос» — цвета с баннера формата: #EE7C00, #F38B0D, #F9D645, #7E4812. Логотипы и персонаж не воспроизводятся. */
+:root{
+  --l-blue:#003C96; --l-deep:#002C6D; --l-yellow:#FFB900; --l-pale:#F2F8FF; --l-ypale:#FFF4D9; --l-gray:#EFF3F3; --l-line:#D5D9D9;
+  --u-orange:#EE7C00; --u-orange2:#F38B0D; --u-yellow:#F9D645; --u-brown:#7E4812; --u-pale:#FFEFE1;
+  --ink:#111111; --ink2:#4A5157; --muted:#7A8187; --white:#FFFFFF;
+  --body:"Manrope","Gilroy","Helvetica Neue",Arial,sans-serif;
+  --disp:"Rubik","Manrope","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:#DDE3EA}
+body{margin:0;background:#DDE3EA;color:var(--ink);font-family:var(--body);padding-inline:16px;padding-block:24px 80px}
+.deck{display:grid;gap:28px;justify-items:center}
+.slide{container-type:inline-size;position:relative;width:min(1200px,100%);aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:var(--white);box-shadow:0 1px 2px rgba(0,44,109,.08),0 18px 40px -24px rgba(0,44,109,.35);scroll-margin-top:16px}
+.in{position:absolute;inset:0;padding:5.2cqw 5.6cqw 6.4cqw;display:flex;flex-direction:column;gap:2.2cqw}
+.foot{position:absolute;left:5.6cqw;right:5.6cqw;bottom:2.4cqw;display:flex;justify-content:space-between;gap:2cqw;font-size:1.05cqw;color:var(--muted);letter-spacing:.02em}
+.foot b{font-weight:700;color:var(--ink2)}
+.dark .foot,.dark .foot b{color:rgba(255,255,255,.62)}
+.orange .foot,.orange .foot b{color:rgba(255,255,255,.8)}
+.kick{font-family:var(--disp);font-weight:700;font-size:1.25cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--l-blue)}
+.dark .kick{color:var(--l-yellow)} .orange .kick{color:var(--u-yellow)}
+h1,h2,h3{margin:0;font-family:var(--disp);text-wrap:balance;letter-spacing:-.015em}
+h1{font-size:5.6cqw;line-height:1.02;font-weight:800}
+h2{font-size:3.5cqw;line-height:1.08;font-weight:800;max-width:30ch}
+h3{font-size:1.75cqw;font-weight:700;line-height:1.2}
+p{margin:0}
+.lead{font-size:1.8cqw;line-height:1.45;color:var(--ink2);max-width:60ch}
+.dark{background:var(--l-blue);color:var(--white)} .dark .lead{color:rgba(255,255,255,.82)}
+.orange{background:var(--u-orange);color:var(--white)} .orange .lead{color:rgba(255,255,255,.9)}
+.hl-y{color:var(--l-yellow)} .hl-o{color:var(--u-orange)} .hl-b{color:var(--l-blue)}
+.tag{display:inline-block;font-family:var(--disp);font-weight:700;font-size:1.05cqw;letter-spacing:.06em;text-transform:uppercase;padding:.35cqw .8cqw;border-radius:99px}
+.t-out{background:var(--l-pale);color:var(--l-blue)} .t-go{background:var(--l-ypale);color:#8A5A00} .t-you{background:var(--u-pale);color:var(--u-brown)}
+.grow{flex:1;min-height:0}
+/* cover */
+.cover .blob{position:absolute;border-radius:50%}
+.cover .b1{width:44cqw;height:44cqw;right:-9cqw;top:-10cqw;background:var(--u-orange)}
+.cover .b2{width:17cqw;height:17cqw;right:27cqw;bottom:-5cqw;background:var(--l-yellow)}
+.cover .b3{width:9cqw;height:9cqw;right:8cqw;bottom:9cqw;background:var(--u-yellow)}
+.cover .in{justify-content:flex-end;gap:2.2cqw}
+.cover h1{max-width:13ch}
+.cover .meta{display:flex;flex-wrap:wrap;gap:1cqw 3cqw;font-size:1.3cqw;color:rgba(255,255,255,.8)}
+.note{font-size:1.1cqw;color:rgba(255,255,255,.6);max-width:70ch}
+/* zone map */
+.zone{display:grid;grid-template-columns:1.05fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:1.2cqw}
+.zc{border-radius:1cqw;padding:1.6cqw 1.8cqw;display:flex;flex-direction:column;gap:.7cqw;background:var(--l-gray)}
+.zc.core{grid-row:1/3;background:var(--u-orange);color:var(--white);justify-content:space-between}
+.zc.core h3{font-size:2.6cqw;line-height:1.05}
+.zc .d{font-size:1.3cqw;line-height:1.4;color:var(--ink2)}
+.zc.core .d{color:rgba(255,255,255,.92)}
+.zc .f{font-size:1.1cqw;font-weight:700;color:var(--l-blue);letter-spacing:.02em}
+/* org map */
+.org{position:relative;display:grid;grid-template-columns:1fr 1.15fr 1fr;grid-template-rows:auto auto auto;gap:1.4cqw 2.4cqw;align-items:stretch}
+.node{border:.18cqw solid var(--l-line);border-radius:1cqw;padding:1.2cqw 1.5cqw;background:var(--white);display:grid;gap:.4cqw}
+.node b{font-family:var(--disp);font-size:1.55cqw}
+.node span{font-size:1.2cqw;color:var(--ink2);line-height:1.35}
+.node .io{font-size:1.05cqw;color:var(--l-blue);font-weight:700}
+.node.me{grid-column:2;grid-row:2;background:var(--u-orange);border-color:var(--u-orange);color:var(--white)}
+.node.me span,.node.me .io{color:rgba(255,255,255,.92)}
+.node.out{border-style:dashed;background:transparent}
+.node.out b,.node.out span{color:var(--muted)}
+/* pains */
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4cqw}
+.pain{border-top:.35cqw solid var(--l-yellow);padding-top:1.2cqw;display:grid;gap:.6cqw;align-content:start}
+.pain b{font-family:var(--disp);font-size:1.8cqw;line-height:1.15}
+.pain span{font-size:1.3cqw;line-height:1.4;color:rgba(255,255,255,.8)}
+/* core concept */
+.core3{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1.4cqw;align-items:center}
+.cbox{border-radius:1.2cqw;padding:2cqw;display:grid;gap:.8cqw;height:100%;align-content:start}
+.cbox h3{font-size:2.1cqw}
+.cbox p{font-size:1.35cqw;line-height:1.45}
+.arrow{font-family:var(--disp);font-size:3cqw;color:var(--l-yellow);font-weight:800}
+/* dataset blocks */
+.blocks{display:grid;grid-template-columns:repeat(9,1fr);gap:.7cqw}
+.blk{border-radius:.7cqw;padding:.8cqw .7cqw;background:var(--l-gray);display:grid;gap:.25cqw;align-content:start;min-height:6.6cqw}
+.blk i{font-style:normal;font-size:.95cqw;color:var(--muted);font-weight:700}
+.blk b{font-size:1.05cqw;line-height:1.2;font-weight:700}
+.blk.mine{background:var(--u-orange);color:var(--white)} .blk.mine i{color:rgba(255,255,255,.8)}
+.legend{display:flex;flex-wrap:wrap;gap:1cqw 2.4cqw;font-size:1.2cqw;color:var(--ink2);align-items:center}
+.sw{display:inline-block;width:1.2cqw;height:1.2cqw;border-radius:.3cqw;vertical-align:-.15cqw;margin-right:.5cqw}
+/* slice table */
+.slice{width:100%;border-collapse:collapse;font-size:1.22cqw}
+.slice th{font-family:var(--disp);text-align:left;font-size:1cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:0 1cqw .7cqw 0;border-bottom:.15cqw solid var(--l-line)}
+.slice td{padding:.5cqw 1cqw .5cqw 0;border-bottom:.1cqw solid var(--l-gray);vertical-align:top;line-height:1.3}
+.slice td:first-child{font-weight:700;white-space:nowrap}
+.slice .n{font-family:var(--disp);font-weight:700;color:var(--l-blue);white-space:nowrap}
+/* known */
+.known{display:grid;grid-template-columns:auto 1fr;gap:2.6cqw;align-items:start}
+.bign{display:grid;gap:1.6cqw}
+.bign div{display:grid}
+.bign b{font-family:var(--disp);font-size:5.4cqw;line-height:.95;font-weight:800;color:var(--u-orange)}
+.bign span{font-size:1.2cqw;color:var(--ink2);max-width:18ch}
+.facts{display:grid;gap:.1cqw;border-top:.15cqw solid var(--l-line)}
+.fact{display:grid;grid-template-columns:12cqw 1fr;gap:1.6cqw;padding:.95cqw 0;border-bottom:.1cqw solid var(--l-gray)}
+.fact i{font-style:normal;font-size:1.02cqw;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--l-blue);padding-top:.25cqw}
+.fact span{font-size:1.35cqw;line-height:1.35}
+.fact small{display:block;font-size:1cqw;color:var(--muted);margin-top:.2cqw}
+/* roles */
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3cqw}
+.role{background:var(--white);border-radius:1cqw;padding:1.5cqw 1.7cqw;display:grid;gap:.6cqw;align-content:start;color:var(--ink)}
+.role h3{font-size:1.75cqw;color:var(--l-blue)}
+.role p{font-size:1.22cqw;line-height:1.4;color:var(--ink2)}
+.role .from{font-size:1.02cqw;color:var(--u-brown);font-weight:700}
+/* before/after */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:1.2cqw;overflow:hidden}
+.ba > div{padding:1.8cqw 2.2cqw;display:grid;gap:1cqw;align-content:start}
+.ba .now{background:var(--l-gray)} .ba .then{background:var(--l-blue);color:var(--white)}
+.ba h3{font-size:1.4cqw;letter-spacing:.1em;text-transform:uppercase}
+.ba .then h3{color:var(--l-yellow)}
+.ba ul{margin:0;padding:0;list-style:none;display:grid;gap:1cqw}
+.ba li{font-size:1.4cqw;line-height:1.38;padding-left:1.6cqw;position:relative}
+.ba li::before{content:"";position:absolute;left:0;top:.62cqw;width:.7cqw;height:.7cqw;border-radius:50%;background:var(--muted)}
+.ba .then li::before{background:var(--l-yellow)}
+/* brief */
+.brief{display:grid;grid-template-columns:1fr 1.55fr;gap:3cqw;align-items:start}
+.sheet{background:var(--white);border-radius:.8cqw;box-shadow:0 1.4cqw 3cqw -1.8cqw rgba(0,44,109,.45);padding:2cqw 2.3cqw;display:grid;gap:.95cqw;color:var(--ink)}
+.sheet .top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:.12cqw solid var(--l-line);padding-bottom:.9cqw}
+.sheet .top b{font-family:var(--disp);font-size:1.7cqw}
+.sheet .top span{font-size:1cqw;color:var(--muted)}
+.sheet dl{margin:0;display:grid;grid-template-columns:10cqw 1fr;gap:.75cqw 1.4cqw}
+.sheet dt{font-size:.98cqw;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.2cqw}
+.sheet dd{margin:0;font-size:1.2cqw;line-height:1.35}
+.sheet dd em{display:block;font-style:normal;font-size:.98cqw;color:var(--u-orange);font-weight:700;margin-top:.1cqw}
+.slot{background:var(--l-ypale);color:#8A5A00;padding:.05cqw .45cqw;border-radius:.3cqw;font-weight:700}
+/* stages */
+.stages{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:.4cqw solid var(--u-orange)}
+.st{padding:1.6cqw 1.4cqw 0 0;display:grid;gap:.7cqw;align-content:start}
+.st+.st{padding-left:1.4cqw;border-left:.12cqw solid var(--l-line)}
+.st .no{font-family:var(--disp);font-weight:800;font-size:2.4cqw;color:var(--u-orange);line-height:1}
+.st b{font-family:var(--disp);font-size:1.6cqw}
+.st span{font-size:1.2cqw;line-height:1.4;color:var(--ink2)}
+.st .you{font-size:1.05cqw;color:var(--l-blue);font-weight:700;border-top:.1cqw dashed var(--l-line);padding-top:.6cqw}
+/* stays */
+.stays{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4cqw}
+.stay{border-radius:1cqw;padding:1.6cqw 1.8cqw;background:var(--l-pale);display:grid;gap:.6cqw;align-content:start}
+.stay b{font-family:var(--disp);font-size:1.75cqw;color:var(--l-blue)}
+.stay span{font-size:1.25cqw;line-height:1.42;color:var(--ink2)}
+.inside{margin-top:auto;display:flex;flex-wrap:wrap;gap:.8cqw 1.2cqw;align-items:center;font-size:1.2cqw;color:var(--ink2)}
+.inside b{font-family:var(--disp);color:var(--ink)}
+.pill{background:var(--l-gray);border-radius:99px;padding:.45cqw 1cqw;font-weight:600}
+/* risks */
+.risks{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6cqw 3cqw}
+.risk{display:grid;grid-template-columns:3.4cqw 1fr;gap:1.2cqw;align-items:start}
+.risk .no{font-family:var(--disp);font-weight:800;font-size:2.4cqw;color:var(--l-yellow);line-height:1}
+.risk b{font-family:var(--disp);font-size:1.6cqw;display:block;margin-bottom:.4cqw}
+.risk span{font-size:1.3cqw;line-height:1.42;color:rgba(255,255,255,.82)}
+/* final */
+.final .in{justify-content:center;gap:2.4cqw}
+.final h2{font-size:4.4cqw;max-width:20ch}
+.cta{display:inline-flex;align-items:center;gap:1.4cqw;background:var(--l-yellow);color:var(--l-deep);border-radius:99px;padding:1.2cqw 2.2cqw;font-family:var(--disp);font-weight:800;font-size:1.7cqw;align-self:flex-start}
+
+/* scale */
+.scale{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.15cqw solid rgba(255,255,255,.25)}
+.sc{padding:2cqw 1.6cqw 0 0;display:grid;gap:.6cqw;align-content:start}
+.sc+.sc{padding-left:1.6cqw;border-left:.12cqw solid rgba(255,255,255,.18)}
+.sc b{font-family:var(--disp);font-weight:800;font-size:4.6cqw;line-height:.95;color:var(--l-yellow);letter-spacing:-.02em}
+.sc b small{font-size:2cqw;font-weight:700}
+.sc span{font-size:1.3cqw;line-height:1.4;color:rgba(255,255,255,.88)}
+.sc i{font-style:normal;font-size:.98cqw;color:rgba(255,255,255,.55)}
+.bridge{display:flex;gap:2cqw;align-items:center;background:var(--u-orange);border-radius:1cqw;padding:1.4cqw 2cqw;margin-top:auto}
+.bridge b{font-family:var(--disp);font-size:1.7cqw;white-space:nowrap}
+.bridge span{font-size:1.3cqw;line-height:1.4}
+/* showcase */
+.vit{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:1cqw}
+.vitslide .in{gap:1.4cqw;padding-top:4.2cqw}
+.vitslide h2{font-size:3cqw;max-width:34ch}
+.ag{background:var(--white);border-radius:.9cqw;padding:1.3cqw 1.4cqw;display:flex;flex-direction:column;gap:.55cqw;color:var(--ink)}
+.ag .cl{font-size:.88cqw;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ag h3{font-size:1.55cqw;color:var(--l-blue);line-height:1.15}
+.ag p{font-size:1.18cqw;line-height:1.4;color:var(--ink2);flex:1}
+.ag .kpi{display:flex;justify-content:space-between;align-items:flex-end;gap:.8cqw;border-top:.1cqw solid var(--l-gray);padding-top:.4cqw}
+.ag .kpi em{font-style:normal;font-size:.95cqw;font-weight:700;color:var(--u-brown);background:var(--u-pale);border-radius:99px;padding:.2cqw .6cqw;white-space:nowrap}
+.ag .kpi b{font-family:var(--disp);font-size:1.05cqw;color:var(--ink);text-align:right;line-height:1.2;white-space:nowrap}
+.ag.first{box-shadow:inset 0 0 0 .22cqw var(--l-yellow)}
+/* impact map */
+.imp{width:100%;border-collapse:collapse;font-size:1.12cqw}
+.imp th{font-family:var(--disp);text-align:left;font-size:.95cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:0 1.1cqw .6cqw 0;border-bottom:.15cqw solid var(--l-line)}
+.impslide .in{gap:1.5cqw;padding-top:4.2cqw}
+.impslide h2{font-size:2.8cqw;max-width:none}
+.imp td{padding:.45cqw 1.1cqw .45cqw 0;border-bottom:.1cqw solid var(--l-gray);vertical-align:top;line-height:1.3}
+.imp td:first-child{font-weight:800;color:var(--l-blue)}
+.imp .now{color:var(--ink2)}
+.imp .who span{display:inline-block;background:var(--l-pale);color:var(--l-blue);font-weight:700;font-size:.95cqw;border-radius:99px;padding:.12cqw .55cqw;margin:0 .25cqw .25cqw 0}
+/* navigation hint */
+.hint{position:fixed;right:18px;bottom:16px;background:rgba(0,44,109,.9);color:#fff;font:600 12px var(--body);padding:8px 12px;border-radius:99px;letter-spacing:.02em}
+@media (max-width:760px){
+  .slide{aspect-ratio:auto;container-type:normal}
+  .in{position:relative;padding:28px 20px 18px;gap:16px}
+  .foot{position:static;padding:0 20px 16px;font-size:10px}
+  h1{font-size:34px} h2{font-size:24px} h3{font-size:16px}
+  .lead,.zc .d,.node span,.pain span,.cbox p,.role p,.ba li,.sheet dd,.st span,.stay span,.risk span,.fact span,.slice{font-size:14px}
+  .kick,.tag,.foot,.blk i,.blk b,.slice th,.fact i,.fact small,.sheet dt,.sheet dd em,.node .io,.zc .f,.role .from,.st .you,.inside,.legend,.note,.cover .meta,.bign span{font-size:11.5px}
+  .node b,.pain b,.cbox h3,.role h3,.st b,.stay b,.risk b,.sheet .top b{font-size:17px}
+  .zc.core h3{font-size:24px} .bign b{font-size:40px} .final h2{font-size:28px} .cta{font-size:16px;padding:12px 18px}
+  .zone,.org,.pains,.core3,.roles,.ba,.brief,.stages,.stays,.risks,.known,.scale,.vit{grid-template-columns:1fr}
+  .sc+.sc{padding-left:0;border-left:none} .sc b{font-size:36px} .sc span,.ag p,.bridge span{font-size:14px} .ag h3,.bridge b{font-size:17px} .ag .cl,.ag .kpi em,.ag .kpi b,.sc i,.imp .who span,.imp th{font-size:11.5px} .imp{font-size:13px} .bridge{flex-direction:column;align-items:flex-start}
+  .zc.core{grid-row:auto} .node.me{grid-column:auto;grid-row:auto}
+  .blocks{grid-template-columns:repeat(3,1fr)} .blk{min-height:0;padding:8px}
+  .arrow{display:none} .st+.st{padding-left:0;border-left:none;border-top:1px solid var(--l-line)}
+  .fact{grid-template-columns:1fr;gap:4px} .sheet dl{grid-template-columns:1fr;gap:2px} .sheet dd{margin-bottom:8px}
+  .cover .b1{width:150px;height:150px;right:-70px;top:-70px} .cover .b2,.cover .b3{display:none}
+  .cover .in{min-height:420px} .risk{grid-template-columns:32px 1fr} .risk .no,.st .no{font-size:22px}
+  .slice td:first-child{white-space:normal} .hint{display:none}
+  .org .node{grid-column:auto!important;grid-row:auto!important}
+  .slice thead,.imp thead{display:none}
+  .slice tr,.imp tr{display:grid;gap:4px;padding:10px 0;border-bottom:1px solid var(--l-line)}
+  .slice td,.imp td{display:block;padding:0;border:none}
+  .imp td:nth-child(2)::before{content:"Сейчас: ";font-weight:700;color:var(--ink)}
+  .imp td:nth-child(3)::before{content:"Меряем: ";font-weight:700;color:var(--ink)}
+  .slice td:nth-child(2){color:var(--ink2)}
+  .ag .kpi b{white-space:normal}
+  .in{gap:14px} .slide{border-radius:12px}
+  .blk b{font-size:12px}
+  .vitslide h2,.impslide h2{font-size:22px}
+  .vitslide .in,.impslide .in{padding-top:28px}
+}
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{background:#fff;padding:0}
+  .deck{gap:0} .slide{width:1280px;border-radius:0;box-shadow:none;break-after:page}
+  .hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+
+<!-- 1 · Обложка -->
+<section class="slide dark cover" aria-label="Обложка">
+  <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  <div class="in">
+    <div class="kick">Сшито по мерке · для маркетинга формата</div>
+    <h1>Второй мозг <span class="hl-y">«Утконоса»</span></h1>
+    <p class="lead">Корпоративный датасет и цифровые роли под маркетинг нового формата — под твою зону, твою неделю и твой бренд.</p>
+    <div class="meta"><span>M.K.D. AI Boutique</span><span>11 сентября 2026</span><span>для обсуждения</span></div>
+    <p class="note">Материал подготовлен M.K.D. AI Boutique. Не является официальным документом «Ленты». Фирменные цвета использованы, чтобы показать инструмент в твоём визуальном мире.</p>
+  </div>
+</section>
+
+<!-- 2 · Тезис -->
+<section class="slide" aria-label="Тезис">
+  <div class="in">
+    <div class="kick">С чего начнём</div>
+    <h2>Ты запускаешь <span class="hl-o">новый бренд</span> внутри федеральной сети. Всё, что формат знает о себе, сейчас живёт в головах, почте и папках.</h2>
+    <p class="lead">Твоя работа — в магазинах и вокруг них: листовки в почтовые ящики, промо в зале, дегустации, открытия. Правила бренда — в голове дизайнера. Офферы — в письмах коммерческой службы. Макеты — в папках. Каждый запрос к ИИ начинается с нуля, поэтому ИИ и делает «коряво».<br><br>Мы предлагаем собрать то, чего у формата пока нет: <b class="hl-b">единую память маркетинга «Утконоса»</b>, из которой работают цифровые помощники.</p>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · для команды «Утконоса»</span><span class="pg"></span></div>
+</section>
+
+<!-- 3 · Твоя зона -->
+<section class="slide" aria-label="Твоя зона ответственности">
+  <div class="in">
+    <div class="kick">Твоя зона ответственности</div>
+    <h2>Что лежит на тебе</h2>
+    <div class="zone grow">
+      <div class="zc core"><div class="f" style="color:var(--u-yellow)">центр</div><h3>Маркетинг формата «Утконос»</h3><p class="d">Новый бренд группы: «рациональный супермаркет» со стабильно низкими ценами. Ты отвечаешь за то, как он звучит, выглядит и приводит людей в магазин — в первую очередь офлайн.</p></div>
+      <div class="zc"><div class="f">каждую неделю</div><h3>Промо недели</h3><p class="d">Офферы от коммерческой службы → листовка A5 с двух сторон → раздача по почтовым ящикам вокруг магазинов.</p></div>
+      <div class="zc"><div class="f">по запросу</div><h3>Цифровые макеты</h3><p class="d">Сайт, баннер в Яндекс Навигаторе, билборды, фасад: «Скоро открытие», «Мы открылись».</p></div>
+      <div class="zc"><div class="f">в магазинах · главное</div><h3>Акции, дегустации, открытия</h3><p class="d">Промоутеры, дегустации, открытия магазинов, адресные программы на 40–50 магазинов, печать в типографии, фотоотчёты.</p></div>
+      <div class="zc"><div class="f">наверх и вокруг</div><h3>Презентации и встречи</h3><p class="d">Презентации на своих шаблонах с новыми данными и акциями, разбор встреч, ежедневная аналитика.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · по итогам встречи</span><span class="pg"></span></div>
+</section>
+
+<!-- 3б · Масштаб -->
+<section class="slide dark" aria-label="Масштаб группы">
+  <div class="in">
+    <div class="kick">Масштаб, внутри которого растёт твой формат</div>
+    <h2>«Утконос» — пилот внутри четвёртого продуктового ритейлера страны</h2>
+    <div class="scale">
+      <div class="sc"><b>1,1 <small>трлн ₽</small></b><span>выручка группы за 2025 год, +24,2% к 2024-му</span><i>отчётность компании</i></div>
+      <div class="sc"><b>7 300<small>+</small></b><span>магазинов на 30.06.2026: гипер, супер, у дома, дрогери</span><i>отчётность компании</i></div>
+      <div class="sc"><b>2,2 <small>трлн ₽</small></b><span>цель по выручке к 2028 году в стратегии группы</span><i>«Стратегия 2028»</i></div>
+      <div class="sc"><b>4-е</b><span>место среди продуктовых ритейлеров России по обороту 2025 года</span><i>INFOLine в «Коммерсанте»</i></div>
+    </div>
+    <div class="bridge"><b>Где здесь ты</b><span>В стратегии до 2028 года «Утконос» записан отдельной строкой — пилот «рационального супермаркета». Первые магазины встали на место «Супер Лент», у которых в августе открылся 400-й магазин. Маркетинг пилота — на виду у всей группы.</span></div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · числа компании подтверждены её собственной отчётностью</span><span class="pg"></span></div>
+</section>
+
+<!-- 4 · Кто вокруг -->
+<section class="slide" aria-label="Подразделения вокруг">
+  <div class="in">
+    <div class="kick">Кто вокруг тебя</div>
+    <h2>Через тебя проходят потоки нескольких подразделений</h2>
+    <div class="org grow">
+      <div class="node" style="grid-column:1;grid-row:1"><b>Коммерческая служба</b><span>Товарооборот сети: какие товары, какая цена, что продвигать</span><span class="io">→ присылает офферы недели</span></div>
+      <div class="node" style="grid-column:2;grid-row:1"><b>Руководство формата</b><span>Решает, как развивать «Утконос» и что считать успехом</span><span class="io">↔ ждёт презентации и результат</span></div>
+      <div class="node" style="grid-column:3;grid-row:1"><b>Аналитика</b><span>Ежедневные цифры, план и факт</span><span class="io">→ данные для отчётов</span></div>
+      <div class="node" style="grid-column:1;grid-row:2"><b>Дизайнер</b><span>Держит правила бренда в голове, делает макеты</span><span class="io">← ТЗ · → макет и исходник</span></div>
+      <div class="node me"><b>Ты · маркетинг «Утконоса»</b><span>Решаешь, что и как сказать покупателю, собираешь всё в материалы</span><span class="io">здесь собирается память формата</span></div>
+      <div class="node" style="grid-column:3;grid-row:2"><b>Типография и BTL</b><span>Координатор, промоутеры, печать, логистика, фотоотчёты</span><span class="io">← макет и адреса · → отчёты</span></div>
+      <div class="node out" style="grid-column:1/4;grid-row:3"><b>Продажи · аренда · HR</b><span>Их задачи в этот проект не входят: работаем только внутри маркетинга формата.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · схема по встрече 10.09 и открытым вакансиям группы</span><span class="pg"></span></div>
+</section>
+
+<!-- 5 · Где болит -->
+<section class="slide dark" aria-label="Где болит">
+  <div class="in">
+    <div class="kick">С чем ты сталкиваешься</div>
+    <h2>Узкие места недели</h2>
+    <div class="pains grow">
+      <div class="pain"><b>Макет — день в очереди</b><span>Сильных дизайнеров мало, и они всегда заняты. Каждая листовка встаёт в очередь.</span></div>
+      <div class="pain"><b>Попытки с ИИ — выходит коряво</b><span>Генераторы картинок не знают бренда, формата и аудитории. Объяснять долго, результат слабее дизайнерского.</span></div>
+      <div class="pain"><b>Исходник не пересобрать</b><span>Картинку из ИИ другой дизайнер не может отредактировать: слоёв нет.</span></div>
+      <div class="pain"><b>Офферы приходят готовыми</b><span>Коммерческая служба отбирает товары по своей логике. Не каждый из них приведёт человека от почтового ящика в магазин.</span></div>
+      <div class="pain"><b>Бренд живёт в одной голове</b><span>Логотип, шрифт, расположение, тон — знает дизайнер. Уйдёт в отпуск — знание уйдёт вместе с ним.</span></div>
+      <div class="pain"><b>Каждый раз с нуля</b><span>Презентации, ТЗ, запросы к ИИ: всё, что формат уже знает, приходится пересказывать заново.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · по встрече 10.09.2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 6 · Идея датасета -->
+<section class="slide" aria-label="Что такое корпоративный датасет">
+  <div class="in">
+    <div class="kick">В чём решение</div>
+    <h2>ИИ работает плохо не потому, что он слабый. У него просто <span class="hl-o">нет памяти о тебе</span>.</h2>
+    <div class="core3 grow">
+      <div class="cbox" style="background:var(--l-pale)"><h3 class="hl-b">Корпоративный датасет</h3><p>Единое ядро знаний формата: компания, продукт, покупатель, бренд, промо, правила. Каждый факт — с источником, датой и владельцем.</p></div>
+      <div class="arrow">→</div>
+      <div class="cbox" style="background:var(--l-ypale)"><h3 style="color:#8A5A00">Сегменты</h3><p>Каждая задача берёт только свою часть ядра. Проверке офферов нужны покупатель и промо, листовке — бренд и формат.</p></div>
+      <div class="arrow">→</div>
+      <div class="cbox" style="background:var(--u-orange);color:#fff"><h3>Цифровые роли</h3><p>Помощники, которые работают из этого ядра: не выдумывают, а ссылаются. Сегодня один ответ, завтра тот же — без повторных объяснений.</p></div>
+    </div>
+    <p class="lead" style="font-size:1.45cqw">Так ты перестаёшь «объяснять ИИ заново» — ты один раз собираешь память, дальше она работает на каждый запрос.</p>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · метод AI1 Stack</span><span class="pg"></span></div>
+</section>
+
+<!-- 7 · 27 блоков -->
+<section class="slide" aria-label="Устройство датасета">
+  <div class="in">
+    <div class="kick">Как устроен датасет компании</div>
+    <h2>27 блоков на всю компанию. <span class="hl-o">Твой срез — 11.</span></h2>
+    <div class="blocks">
+      <div class="blk mine"><i>1.2</i><b>Компания и формат</b></div>
+      <div class="blk mine"><i>1.3</i><b>Продукт и ассортимент</b></div>
+      <div class="blk mine"><i>1.4</i><b>Покупатель</b></div>
+      <div class="blk mine"><i>1.5</i><b>Рынок и сезонность</b></div>
+      <div class="blk mine"><i>1.6</i><b>Конкуренты рядом</b></div>
+      <div class="blk mine"><i>1.7</i><b>Маркетинг и промо</b></div>
+      <div class="blk"><i>1.8</i><b>Продажи</b></div>
+      <div class="blk mine"><i>1.9</i><b>Бренд и голос</b></div>
+      <div class="blk mine"><i>1.10</i><b>Сервис и отзывы</b></div>
+      <div class="blk"><i>1.11</i><b>Процессы</b></div>
+      <div class="blk"><i>1.12</i><b>Финансы</b></div>
+      <div class="blk"><i>1.13</i><b>Право</b></div>
+      <div class="blk mine"><i>1.14</i><b>Правила рекламы</b></div>
+      <div class="blk"><i>1.15</i><b>Люди</b></div>
+      <div class="blk mine"><i>1.16</i><b>Офферы и СТМ</b></div>
+      <div class="blk"><i>1.17</i><b>Склад</b></div>
+      <div class="blk"><i>1.18</i><b>Логистика</b></div>
+      <div class="blk"><i>1.19</i><b>Производство</b></div>
+      <div class="blk mine"><i>1.20</i><b>Отклик на промо</b></div>
+      <div class="blk"><i>1.24</i><b>Источники</b></div>
+      <div class="blk"><i>1.25</i><b>Правила датасета</b></div>
+      <div class="blk"><i>1.26</i><b>IT и сервисы</b></div>
+      <div class="blk"><i>1.27</i><b>Экспертиза</b></div>
+      <div class="blk"><i>1.1</i><b>Где лежат данные</b></div>
+      <div class="blk"><i>1.21</i><b>Изменяемость</b></div>
+      <div class="blk"><i>1.22</i><b>Доступ</b></div>
+      <div class="blk"><i>1.23</i><b>Пересечения</b></div>
+    </div>
+    <div class="legend"><span><i class="sw" style="background:var(--u-orange)"></i>твой срез — маркетинг формата</span><span><i class="sw" style="background:var(--l-gray);border:1px solid var(--l-line)"></i>остальная компания — подключается, когда понадобится</span></div>
+    <p class="lead" style="font-size:1.4cqw">Начинаем с твоего среза. Структура сразу рассчитана на всю компанию, поэтому следующий отдел подключится к тому же ядру, а не к новой папке.</p>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · шаблон корпоративного датасета</span><span class="pg"></span></div>
+</section>
+
+<!-- 8 · Твой срез по мерке -->
+<section class="slide" aria-label="Твой срез датасета">
+  <div class="in">
+    <div class="kick">Твой срез · сшито по мерке</div>
+    <h2>Что внутри и откуда берётся</h2>
+    <div class="legend"><span class="tag t-out">собрано</span> из открытых источников · <span class="tag t-go">дособираем</span> разведка идёт сейчас · <span class="tag t-you">от тебя</span> знает только команда формата</div>
+    <table class="slice">
+      <thead><tr><th>Блок</th><th>Что внутри для тебя</th><th>Уже есть</th><th>Статус</th></tr></thead>
+      <tbody>
+        <tr><td>Компания и формат</td><td>Место «Утконоса» в группе, стратегия до 2028 года, магазины и адреса</td><td class="n">66 строк</td><td><span class="tag t-out">собрано</span></td></tr>
+        <tr><td>Продукт и ассортимент</td><td>Концепция, отличие от «Супер Ленты», собственные марки</td><td class="n">10 строк</td><td><span class="tag t-out">собрано</span> <span class="tag t-you">+ матрица от тебя</span></td></tr>
+        <tr><td>Бренд и голос</td><td>Слоган, обещание, тон, облик, эталонные тексты</td><td class="n">20 строк</td><td><span class="tag t-out">собрано</span> <span class="tag t-you">+ брендбук</span></td></tr>
+        <tr><td>Сервис и отзывы</td><td>Что покупатели хвалят и на что жалуются</td><td class="n">4 строки</td><td><span class="tag t-out">собрано</span></td></tr>
+        <tr><td>Офферы и СТМ</td><td>Логика промо-квот, собственные марки как основа офферов</td><td class="n">5 строк</td><td><span class="tag t-you">+ письма КС</span></td></tr>
+        <tr><td>Правила рекламы</td><td>Маркировка баннеров, согласования, персональные данные</td><td class="n">4 строки</td><td><span class="tag t-you">+ порядок согласования</span></td></tr>
+        <tr><td>Покупатель · Рынок · Конкуренты · Промо</td><td>Портрет жителя района, сезонность, промо сетей рядом с магазинами, механики и каналы</td><td class="n">идёт сбор</td><td><span class="tag t-go">дособираем</span></td></tr>
+        <tr><td>Отклик на промо</td><td>Что сработало: раздача, трафик, продажи офферов</td><td class="n">—</td><td><span class="tag t-you">только от тебя</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · счётчики на 11.09.2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 9 · Уже знаем -->
+<section class="slide" aria-label="Что уже известно">
+  <div class="in">
+    <div class="kick">Без единого вопроса к тебе</div>
+    <h2>Это система уже знает об «Утконосе»</h2>
+    <div class="known grow">
+      <div class="bign">
+        <div><b>141</b><span>утверждение о группе и формате</span></div>
+        <div><b>22</b><span>сайта-источника: от отчётности до карт</span></div>
+        <div><b>2</b><span>независимых источника на каждый факт — или пометка «гипотеза»</span></div>
+      </div>
+      <div class="facts">
+        <div class="fact"><i>Роль</i><span>«Рациональный супермаркет» со стабильно низкими ценами и упрощённым сервисом<small>Стратегия «Группы Лента» 2025–2028</small></span></div>
+        <div class="fact"><i>Где</i><span>Первые магазины открылись летом 2025 года на месте части «Супер Лент»<small>«Ведомости», 02.09.2025 · Forbes, 04.02.2026</small></span></div>
+        <div class="fact"><i>Для кого</i><span>Жители района с доходом ниже, чем у покупателя «Супер Ленты»<small>Руководство «Ленты» в Forbes</small></span></div>
+        <div class="fact"><i>Обещание</i><span>Низкие цены на всё · широкий выбор · доставка от 30 минут · «Товары до 99 рублей»<small>Страница формата на lenta.com</small></span></div>
+        <div class="fact"><i>Голос</i><span>«Утконос — точно выгодно!» Ответы на отзывы игривые, с эмодзи<small>lenta.com · 2ГИС</small></span></div>
+        <div class="fact"><i>Покупатели</i><span>Хвалят цены; повторяются темы «узкий выбор» и «цена на кассе не как на ценнике»<small>Яндекс Карты · 2ГИС, две независимые площадки</small></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · только открытые источники, проверено 11.09.2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 10 · Витрина: промо в магазинах -->
+<section class="slide orange vitslide" aria-label="Витрина агентов: промо в магазинах">
+  <div class="in">
+    <div class="kick">Витрина · 1 из 2 · промо в магазинах</div>
+    <h2>Восемь агентов на офлайн: листовки, промоутеры, дегустации, открытия</h2>
+    <div class="vit grow">
+      <div class="ag first"><h3>Проектный менеджер</h3><p>Акция в магазинах под ключ: адресная программа, график промоутеров, заказ в типографию, сроки.</p><div class="kpi"><em>сроки акций</em><b>40–50 магазинов</b></div></div>
+      <div class="ag"><h3>Логист</h3><p>Тираж по адресам: сколько листовок в какой магазин, доставка, закладка в ящики вокруг точек.</p><div class="kpi"><em>доставка вовремя</em><b>каждый адрес</b></div></div>
+      <div class="ag"><h3>Тренер сотрудников</h3><p>Инструктаж промоутеров: скрипт дегустации, что говорить об офферах, стандарты в зале.</p><div class="kpi"><em>качество акции</em><b>скрипт на акцию</b></div></div>
+      <div class="ag first"><h3>Специалист по ценообразованию</h3><p>Проверка офферов недели: цена против сетей рядом, механика «Товары до 99 рублей», доводы для КС.</p><div class="kpi"><em>трафик</em><b>каждый оффер</b></div></div>
+      <div class="ag first"><h3>Копирайтер</h3><p>Заголовки и тексты листовок, плакатов и стоек дегустаций в голосе «Точно выгодно!».</p><div class="kpi"><em>отклик</em><b>5 заголовков на оффер</b></div></div>
+      <div class="ag first"><h3>Графический дизайнер</h3><p>Листовка A5, фасад «Мы открылись», материалы для зала — черновики слоями, дизайнер доводит.</p><div class="kpi"><em>время на макет</em><b>5 форматов из ТЗ</b></div></div>
+      <div class="ag"><h3>Комплаенс-менеджер</h3><p>Проверка до печати: условия акции, обязательные надписи, маркировка рекламы.</p><div class="kpi"><em>риски</em><b>каждый макет</b></div></div>
+      <div class="ag"><h3>BI-аналитик</h3><p>Отклик: трафик и продажи оффер-товаров по волнам раздачи и дням дегустаций, фотоотчёты в сводку.</p><div class="kpi"><em>контроль</em><b>каждая волна</b></div></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · жёлтая рамка — первые, с них начинается неделя промо</span><span class="pg"></span></div>
+</section>
+
+<!-- 10а · Витрина: бренд и управление -->
+<section class="slide dark vitslide" aria-label="Витрина агентов: бренд и управление">
+  <div class="in">
+    <div class="kick">Витрина · 2 из 2 · бренд, смыслы, управление</div>
+    <h2>Ещё восемь — чтобы формат звучал одинаково и рос на цифрах</h2>
+    <div class="vit grow">
+      <div class="ag"><h3>Смысловик</h3><p>Смысловое ядро формата: профиль бренда, портрет покупателя по задачам (JTBD), карта сообщений.</p><div class="kpi"><em>качество</em><b>17 полей профиля</b></div></div>
+      <div class="ag"><h3>Исследователь и разведка</h3><p>Рынок, сезонность и промо конкурентов вокруг твоих магазинов — с источником у каждого факта.</p><div class="kpi"><em>сила оффера</em><b>141 факт уже есть</b></div></div>
+      <div class="ag"><h3>Цифровизатор</h3><p>Аудит цифровой зрелости команды формата и порядок внедрения: что автоматизировать первым.</p><div class="kpi"><em>масштаб</em><b>26 вопросов аудита</b></div></div>
+      <div class="ag first"><h3>Бренд-стратег</h3><p>Паспорт бренда «Утконоса»: логотип, цвета, шрифты, тон, запреты. Эталон для всех остальных.</p><div class="kpi"><em>ошибки бренда</em><b>1 стандарт на всех</b></div></div>
+      <div class="ag"><h3>Маркетолог и контент-стратег</h3><p>Промо-календарь, креативные брифы на каждую волну, план размещений, разбор результатов.</p><div class="kpi"><em>скорость запуска</em><b>7 документов</b></div></div>
+      <div class="ag"><h3>Агент сервиса</h3><p>Черновики ответов на отзывы в голосе бренда и сводка тем жалоб по магазинам.</p><div class="kpi"><em>репутация</em><b>11+ карточек на картах</b></div></div>
+      <div class="ag"><h3>Ассистент руководителя</h3><p>Презентации из голосовой заметки на твоём шаблоне; встреча → решения, задачи, сроки.</p><div class="kpi"><em>время на отчёты</em><b>заметка → презентация</b></div></div>
+      <div class="ag"><h3>Делопроизводитель</h3><p>Документы акции: заявки в типографию, акты подрядчиков, отчёт по акции для руководства.</p><div class="kpi"><em>порядок</em><b>пакет на акцию</b></div></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · 16 агентов из 34 по методу AI1 Stack — оркестратор зовёт только нужных под задачу</span><span class="pg"></span></div>
+</section>
+
+<!-- 10б · Карта влияния -->
+<section class="slide impslide" aria-label="Карта влияния">
+  <div class="in">
+    <div class="kick">Карта влияния · выгода в показателях</div>
+    <h2>Что сдвигаем, от какой точки и чем меряем</h2>
+    <table class="imp">
+      <thead><tr><th>Показатель</th><th>Сейчас</th><th>Как меряем</th><th>Кто двигает</th></tr></thead>
+      <tbody>
+        <tr><td>Время от письма КС до макета</td><td class="now">около дня в очереди у дизайнера</td><td>часы на каждую волну акций</td><td class="who"><span>Маркетолог</span><span>Копирайтер</span><span>Дизайнер</span></td></tr>
+        <tr><td>Форматов из одного ТЗ</td><td class="now">один макет — один заход к дизайнеру</td><td>форматов на волну: A5, Навигатор, фасад, сайт, билборд</td><td class="who"><span>Дизайнер</span></td></tr>
+        <tr><td>Правки у дизайнера</td><td class="now">не считаются</td><td>итераций на макет</td><td class="who"><span>Бренд-стратег</span><span>Комплаенс</span></td></tr>
+        <tr><td>Сила оффера на листовке</td><td class="now">выбор на чутьё</td><td>продажи оффер-товаров в зоне раздачи: до и во время волны</td><td class="who"><span>Ценообразование</span><span>Исследователь</span><span>Смысловик</span></td></tr>
+        <tr><td>Отклик на раздачу</td><td class="now">уточним на мерке</td><td>трафик магазина по волнам раздачи</td><td class="who"><span>BI-аналитик</span></td></tr>
+        <tr><td>Репутация на картах</td><td class="now">жалобы «узкий выбор» и «цена на кассе» на двух площадках</td><td>доля отвеченных отзывов, темы жалоб по месяцам</td><td class="who"><span>Агент сервиса</span></td></tr>
+        <tr><td>Акции в магазинах</td><td class="now">координатор и отчёты собираются вручную</td><td>срок подготовки акции, собранные фотоотчёты, продажи в дни акции</td><td class="who"><span>Проектный менеджер</span><span>BI-аналитик</span></td></tr>
+        <tr><td>Риски рекламы</td><td class="now">проверка вручную</td><td>доля макетов, проверенных до печати</td><td class="who"><span>Комплаенс</span></td></tr>
+        <tr><td>Время на презентации</td><td class="now">собираются вручную</td><td>часы на презентацию</td><td class="who"><span>Ассистент</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · точку «сейчас» снимаем на мерке, эффект — замером до и после, без обещаний на глаз</span><span class="pg"></span></div>
+</section>
+
+<!-- 11 · Как меняется неделя -->
+<section class="slide" aria-label="Как меняется неделя">
+  <div class="in">
+    <div class="kick">Как меняется работа</div>
+    <h2>Та же неделя промо — другая механика</h2>
+    <div class="ba grow">
+      <div class="now"><h3>Сейчас</h3><ul>
+        <li>Офферы приходят письмом, разбираешь их вручную и на чутьё</li>
+        <li>ТЗ дизайнеру каждый раз пишется с нуля</li>
+        <li>Макет — около дня в очереди у дизайнера</li>
+        <li>Попытки с ИИ: долго объяснять, коряво, исходник не пересобрать</li>
+        <li>Акция в магазине: адреса, промоутеры, типография, отчёты — по переписке</li>
+        <li>Правила бренда знает один человек</li>
+      </ul></div>
+      <div class="then"><h3>С памятью формата</h3><ul>
+        <li>Пересылаешь письмо — получаешь разбор офферов с доводами для КС</li>
+        <li>ТЗ собирается из памяти: аудитория, голос, сезон, запреты</li>
+        <li>Черновые макеты во всех форматах; дизайнер доводит, а не рисует с нуля</li>
+        <li>Исходник слоями: любой дизайнер пересоберёт</li>
+        <li>Акция собирается по шаблону: адресная программа, график, заказ в типографию, отчёт</li>
+        <li>Бренд записан и проверяется автоматически — знание остаётся у формата</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · эффект меряем на твоих материалах «до и после», без обещаний на глаз</span><span class="pg"></span></div>
+</section>
+
+<!-- 12 · Пример ТЗ -->
+<section class="slide" style="background:var(--l-gray)" aria-label="Пример ТЗ">
+  <div class="in">
+    <div class="kick">Как это выглядит</div>
+    <div class="brief grow">
+      <div style="display:grid;gap:1.6cqw;align-content:start">
+        <h2>ТЗ на листовку, собранное из памяти формата</h2>
+        <p class="lead" style="font-size:1.5cqw">Ни одного вопроса к тебе: только то, что система уже знает. Оранжевым показано, из какого блока взята строка.<br><br>С твоими материалами (брендбук, прошлые макеты, письмо КС) такое ТЗ собирается за минуты.</p>
+      </div>
+      <div class="sheet">
+        <div class="top"><b>ТЗ · листовка A5, две стороны</b><span>пример</span></div>
+        <dl>
+          <dt>Задача</dt><dd>Привести жителей района в «Утконос» на неделю акции. Раздача по почтовым ящикам.</dd>
+          <dt>Кому</dt><dd>Жители района, для которых важна цена; видят листовку несколько секунд.<em>← покупатель</em></dd>
+          <dt>Лицо</dt><dd>Имидж формата, «Точно выгодно!», одно сообщение, адрес магазина — только здесь.<em>← бренд и голос</em></dd>
+          <dt>Оборот</dt><dd><span class="slot">3–4 оффера недели</span> вместе, цена крупно; рядом «Товары до 99 рублей».<em>← офферы · обещание формата</em></dd>
+          <dt>Тон</dt><dd>Лёгкий и игривый, как в ответах на отзывы; повод — осень.<em>← голос</em></dd>
+          <dt>Нельзя</dt><dd>Шум, два сообщения в облаке, повтор сцены из референса, цена, которую не подтвердит касса.<em>← отзывы покупателей</em></dd>
+          <dt>Сдача</dt><dd>Слои: фон, товары, текст и цены отдельно.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · пример на открытых данных</span><span class="pg"></span></div>
+</section>
+
+<!-- 13 · Этапы -->
+<section class="slide" aria-label="Как собираем">
+  <div class="in">
+    <div class="kick">Как собираем</div>
+    <h2>Пять этапов — от мерки до работы без меня</h2>
+    <div class="stages grow">
+      <div class="st"><span class="no">1</span><b>Мерка</b><span>Разговор о твоей неделе, бренде и форматах. Проверяем, какие сервисы разрешены на твоём компьютере.</span><span class="you">от тебя: 20 минут и доступ к материалам</span></div>
+      <div class="st"><span class="no">2</span><b>Память формата</b><span>Собираем твой срез: 11 блоков, каждый факт с источником. Внешнее уже собрано — добавляем внутреннее.</span><span class="you">от тебя: брендбук, 2–3 макета, письмо КС</span></div>
+      <div class="st"><span class="no">3</span><b>Роли</b><span>Запускаем первых агентов недели промо: проектный менеджер, бренд-стратег, копирайтер, дизайнер, ценообразование. Остальные — по мере готовности памяти.</span><span class="you">от тебя: принять паспорт бренда</span></div>
+      <div class="st"><span class="no">4</span><b>Обкатка</b><span>Реальные недели акций. Меряем время от письма до макета и число правок — до и после.</span><span class="you">от тебя: живые задачи</span></div>
+      <div class="st"><span class="no">5</span><b>Передача</b><span>Инструкция, приёмы, обучение. Ты работаешь сама; память пополняется с каждой встречей.</span><span class="you">итог: инструмент твой</span></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · сроки согласуем на мерке</span><span class="pg"></span></div>
+</section>
+
+<!-- 14 · Что остаётся -->
+<section class="slide" aria-label="Что остаётся у тебя">
+  <div class="in">
+    <div class="kick">Что остаётся у тебя</div>
+    <h2>Не подписка на картинки, а <span class="hl-o">актив формата</span></h2>
+    <div class="stays">
+      <div class="stay"><b>Память формата</b><span>Живой датасет «Утконоса»: бренд, покупатель, промо, правила. Растёт с каждой неделей и не уходит вместе с людьми.</span></div>
+      <div class="stay"><b>Паспорт бренда</b><span>Логотип, цвета, шрифты, тон, запреты — записаны и проверяются, а не хранятся в одной голове.</span></div>
+      <div class="stay"><b>Команда агентов</b><span>16 ролей витрины: от акций в магазинах и промоутеров до макетов слоями, отзывов и презентаций.</span></div>
+      <div class="stay"><b>Библиотека форматов</b><span>A5, Навигатор, фасад, сайт, билборд — с размерами и эталонами.</span></div>
+      <div class="stay"><b>Навык</b><span>Ты понимаешь, как устроена система, и можешь поставить ей новую задачу сама.</span></div>
+      <div class="stay"><b>Задел на отдел</b><span>Структура на 27 блоков: следующая команда подключается к тому же ядру.</span></div>
+    </div>
+    <div class="inside"><b>Под капотом:</b><span class="pill">шаблон датасета на 27 блоков</span><span class="pill">разведка по 22 источникам</span><span class="pill">проверка фактов двумя источниками</span><span class="pill">16 агентов из 34 по методу AI1 Stack</span><span class="pill">сопровождение до передачи</span></div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · условия обсудим лично</span><span class="pg"></span></div>
+</section>
+
+<!-- 15 · Честно о рисках -->
+<section class="slide dark" aria-label="Честно о рисках">
+  <div class="in">
+    <div class="kick">Честно о рисках</div>
+    <h2>Что стоит знать заранее</h2>
+    <div class="risks grow">
+      <div class="risk"><span class="no">1</span><div><b>Закрытый рабочий компьютер</b><span>Часть внешних сервисов на рабочих компьютерах недоступна. Подбираем разрешённые инструменты — решаем на мерке.</span></div></div>
+      <div class="risk"><span class="no">2</span><div><b>Коммерческие данные</b><span>Цены до старта акции и выгрузки из учётной системы наружу не уходят. Правило «что можно отдавать ИИ» — первое, что мы записываем в память.</span></div></div>
+      <div class="risk"><span class="no">3</span><div><b>ИИ не заменит дизайнера</b><span>Он готовит черновик и исходник, дизайнер доводит. Сильный дизайнер с таким инструментом делает больше, а не уходит.</span></div></div>
+      <div class="risk"><span class="no">4</span><div><b>Нужно твоё время на старте</b><span>Мерка и приёмка паспорта бренда требуют твоего внимания. Без этого память будет только внешней.</span></div></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · для команды «Утконоса»</span><span class="pg"></span></div>
+</section>
+
+<!-- 16 · Финал -->
+<section class="slide orange final" aria-label="Следующий шаг">
+  <span class="blob" style="position:absolute;width:38cqw;height:38cqw;border-radius:50%;right:-10cqw;bottom:-14cqw;background:var(--u-yellow);opacity:.55"></span>
+  <div class="in">
+    <div class="kick">Зачем это тебе</div>
+    <h2>Когда руководство будет решать, масштабировать ли «Утконос», у тебя будет не папка с макетами, а работающая система маркетинга формата.</h2>
+    <span class="cta">Следующий шаг — 20 минут на мерку</span>
+  </div>
+  <div class="foot"><span><b>M.K.D. AI Boutique</b> · Мастерство · Человеческий капитал · Цифровизация</span><span class="pg"></span></div>
+</section>
+
+</main>
+<div class="hint" aria-hidden="true">← → листать · P — печать в PDF</div>
+<script>
+(function(){
+  var s=[].slice.call(document.querySelectorAll('.slide'));
+  s.forEach(function(e,k){var p=e.querySelector('.pg');if(p)p.textContent=(k+1)+' / '+s.length});
+  function cur(){var y=window.scrollY+window.innerHeight*0.35,i=0;s.forEach(function(e,k){if(e.offsetTop<=y)i=k});return i}
+  function go(i){i=Math.max(0,Math.min(s.length-1,i));s[i].scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();go(cur()+1)}
+    if(['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key)>-1){e.preventDefault();go(cur()-1)}
+    if(e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З'){window.print()}
+  });
+})();
+</script>
+</body>
+</html>
